@@ -1,6 +1,7 @@
 {
   "variables": {
     "ansible_host": "default",
+    "version" : "latest",
     "ansible_connection": "docker",
     "ansible_roles_path": "./roles"
   },
@@ -30,5 +31,14 @@
         "ansible_host={{user `ansible_host`}} ansible_connection={{user `ansible_connection`}}"
       ]
     }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "dev-env",
+        "tag": "0.1"
+      }
+    ]
   ]
 }
