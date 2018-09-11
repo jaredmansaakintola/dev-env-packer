@@ -7,7 +7,7 @@
   },
   "builders": [{
     "type": "docker",
-    "image": "centos:7",
+    "image": "thrift:latest",
     "commit": "true",
     "run_command": [ "-d", "-i", "-t", "--name", "{{user `ansible_host`}}", "{{.Image}}", "/bin/bash" ],
     "changes": [
@@ -17,7 +17,6 @@
     {
       "type": "shell",
       "inline": [
-        "yum update python -yq"
       ]
     },
     {
