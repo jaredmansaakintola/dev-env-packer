@@ -7,7 +7,7 @@
   },
   "builders": [{
     "type": "docker",
-    "image": "thrift:latest",
+    "image": "thrift:0.9",
     "commit": "true",
     "run_command": [ "-d", "-i", "-t", "--name", "{{user `ansible_host`}}", "{{.Image}}", "/bin/bash" ],
     "changes": [
@@ -17,6 +17,8 @@
     {
       "type": "shell",
       "inline": [
+        "apt-get update",
+        "apt-get install python -yq"
       ]
     },
     {
@@ -36,7 +38,7 @@
     [
       {
         "type": "docker-tag",
-        "repository": "dev-env",
+        "repository": "dev-env-thrift",
         "tag": "0.1"
       }
     ]
