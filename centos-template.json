@@ -1,0 +1,45 @@
+{
+  "variables": {
+    "ansible_host": "default",
+    "version" : "latest",
+    "ansible_connection": "docker",
+    "ansible_roles_path": "./roles"
+  },
+  "builders": [{
+    "type": "docker",
+    "image": "centos:7",
+    "commit": "true",
+    "run_command": [ "-d", "-i", "-t", "--name", "{{user `ansible_host`}}", "{{.Image}}", "/bin/bash" ],
+    "changes": [
+    ]
+  }],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "yum update python -yq"
+      ]
+    },
+    {
+      "type": "ansible",
+      "ansible_env_vars": [
+        "ANSIBLE_ROLES_PATH={{user `ansible_roles_path` }}"
+      ],
+      "user": "root",
+      "playbook_file": "./playbook.yml",
+      "extra_arguments": [
+        "--extra-vars",
+        "ansible_host={{user `ansible_host`}} ansible_connection={{user `ansible_connection`}}"
+      ]
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "docker-tag",
+        "repository": "dev-env",
+        "tag": "0.1"
+      }
+    ]
+  ]
+}
