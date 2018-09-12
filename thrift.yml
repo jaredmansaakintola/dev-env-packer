@@ -1,0 +1,5 @@
+---
+- name: A demo to run thrift provisioned by ansible in a docker container
+  hosts: all
+  roles:
+    - thrift

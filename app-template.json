@@ -7,19 +7,17 @@
   },
   "builders": [{
     "type": "docker",
-    "image": "thrift:0.9",
+    "image": "centos:7",
     "commit": "true",
     "run_command": [ "-d", "-i", "-t", "--name", "{{user `ansible_host`}}", "{{.Image}}", "/bin/bash" ],
     "changes": [
-      "WORKDIR /var/www"
     ]
   }],
   "provisioners": [
     {
       "type": "shell",
       "inline": [
-        "apt-get update",
-        "apt-get install python -yq"
+        "yum update python -yq"
       ]
     },
     {
@@ -28,7 +26,7 @@
         "ANSIBLE_ROLES_PATH={{user `ansible_roles_path` }}"
       ],
       "user": "root",
-      "playbook_file": "./thrift.yml",
+      "playbook_file": "./playbook.yml",
       "extra_arguments": [
         "--extra-vars",
         "ansible_host={{user `ansible_host`}} ansible_connection={{user `ansible_connection`}}"
@@ -39,7 +37,7 @@
     [
       {
         "type": "docker-tag",
-        "repository": "dev-env-thrift",
+        "repository": "dev-env-centos",
         "tag": "0.1"
       }
     ]
