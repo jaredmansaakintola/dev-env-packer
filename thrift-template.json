@@ -11,7 +11,8 @@
     "commit": "true",
     "run_command": [ "-d", "-i", "-t", "--name", "{{user `ansible_host`}}", "{{.Image}}", "/bin/bash" ],
     "changes": [
-      "WORKDIR /var/www"
+      "WORKDIR /microservices",
+      "VOLUME ./microservices /microservices"
     ]
   }],
   "provisioners": [

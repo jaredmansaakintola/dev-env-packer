@@ -6,4 +6,4 @@ class DemoHandler(object):
 
     @staticmethod
     def world(w_type):
-        return w_type + " World"
+        return w_type + " the World"

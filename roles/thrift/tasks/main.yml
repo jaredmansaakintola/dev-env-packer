@@ -1,8 +1,8 @@
 ---
 # tasks file for thrift
-- name: Add thrift files to thrift
-  copy:
-    dest: /data/demo_ms/
-    src: ./thrift-demo/
-    owner: root
+# - name: Add thrift files to thrift
+#   copy:
+#     dest: /microservices/
+#     src: ./microservices/
+#     owner: root
 

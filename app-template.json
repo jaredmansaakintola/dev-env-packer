@@ -5,14 +5,30 @@
     "ansible_connection": "docker",
     "ansible_roles_path": "./roles"
   },
-  "builders": [{
-    "type": "docker",
-    "image": "centos:7",
-    "commit": "true",
-    "run_command": [ "-d", "-i", "-t", "--name", "{{user `ansible_host`}}", "{{.Image}}", "/bin/bash" ],
-    "changes": [
-    ]
-  }],
+  "builders": [
+    {
+      "type": "docker",
+      "image": "php:7",
+      "commit": "true",
+      "run_command": [ "-d", "-i", "-t", "--name", "{{user `ansible_host`}}", "{{.Image}}", "/bin/bash" ],
+      "changes": [
+        "WORKINGDIR /var/www",
+        "VOLUME ./ /var/www"
+      ]
+    },
+    {
+      "type": "docker",
+      "image": "httpd",
+      "commit": "true",
+      "run_command": [ "-d", "-i", "-t", "--name", "{{user `ansible_host`}}", "{{.Image}}", "/bin/bash" ],
+      "changes": [
+        "WORKINGDIR /var/www",
+        "VOLUME ./ /var/www",
+        "EXPOSE 8080 80"
+      ]
+    }
+
+  ],
   "provisioners": [
     {
       "type": "shell",
